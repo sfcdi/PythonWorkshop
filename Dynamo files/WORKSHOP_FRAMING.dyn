@@ -1,0 +1,459 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "WORKSHOP_FRAMING",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "Point": {
+        "Key": "Autodesk.DesignScript.Geometry.Point",
+        "Value": "ProtoGeometry.dll"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "fc71a25b1abf4c2da953d4576754e9cd",
+      "Inputs": [
+        {
+          "Id": "c2de1914ba60470d9ce2acdaddd425b7",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "9c2eac746a5a4b39a88666f1f70b34e9",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "b2211bcaa0b44aaeb2420ab981ddb44e",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e7c476c7341842dcb4196a2b536aa908",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "eee85a093de2453a927c68bfcc035f6b",
+      "Inputs": [
+        {
+          "Id": "6258b70394ca47ae90f95090ecb4c9d9",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "7f07571484b0498fa0123fa8a0bf701e",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "7370e1f4ab9648cf9aed918dfbcd7692",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "9ed8fdbd15cd4717a52abb9edbd7de93",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "0555d7fa24674078ade4ea04a15d3bef",
+      "Inputs": [
+        {
+          "Id": "2959d9afe13145adac21ca4a973233bf",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "4cb1ad48d7944dab81c2d6bc23108e0f",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FillPatterns, DSRevitNodesUI",
+      "SelectedIndex": 1,
+      "NodeType": "ExtensionNode",
+      "Id": "be4c640b69a94baca9752ae60d455933",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "e86c3cb5052d428e901d152ec2ea12a1",
+          "Name": "FillPattern",
+          "Description": "The selected FillPattern",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All available fill patterns."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "74f9c93575914c8b8744db407658b321",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "403d489c6e0a4225bce578d3529def51",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "5344eb8f1abc45aaa645bed1c0a5c21f",
+      "Inputs": [
+        {
+          "Id": "d2badcc13a0146fc8f4f668d8f2ecfee",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "16c162253f204ed895508b00c6191cc1",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 15,
+      "NodeType": "ExtensionNode",
+      "Id": "e818027bca894879b1551ff627e9cb46",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "df79a849edf342a98034711af38cd8da",
+          "Name": "Family Type",
+          "Description": "The selected Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All family types available in the document."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "d8a8786fd0f143bdb32d341c08baefd0",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5e6351e380544e07a26fa42cab50b115",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "267dc89dcb284f94808f4f943b5f67d3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "fdeedc7d36f84731bed4d1f141cd59fb",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "",
+      "VariableInputPorts": true,
+      "Id": "8a525eb6e0424ed8bac9a5c5692174d3",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c6c2135e038649b19e5da3677d015cc5",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    }
+  ],
+  "Connectors": [],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 100.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 96.660953025649917,
+      "EyeY": 85.4983644502306,
+      "EyeZ": 79.549682831316744,
+      "LookX": -103.33421740360779,
+      "LookY": -75.241072554140544,
+      "LookZ": -51.947676380729341,
+      "UpX": -0.31532748625055906,
+      "UpY": 0.9356495158395457,
+      "UpZ": -0.15851990387378645
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Python Create Structural Framing",
+        "Id": "fc71a25b1abf4c2da953d4576754e9cd",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1126.1658833605577,
+        "Y": -138.65970630170426
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python - CSV Create",
+        "Id": "b2211bcaa0b44aaeb2420ab981ddb44e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 939.647903069975,
+        "Y": -144.64165022856861
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Update Structural Framing",
+        "Id": "eee85a093de2453a927c68bfcc035f6b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1128.037731888973,
+        "Y": -24.854495706335229
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python - CSV Update",
+        "Id": "7370e1f4ab9648cf9aed918dfbcd7692",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 938.10782456996458,
+        "Y": -23.808914506031414
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Graphic Override",
+        "Id": "0555d7fa24674078ade4ea04a15d3bef",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1126.1366844253973,
+        "Y": 197.42597145398719
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Fill Patterns",
+        "Id": "be4c640b69a94baca9752ae60d455933",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 897.05904729127872,
+        "Y": 195.039962071984
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Move Elements",
+        "Id": "74f9c93575914c8b8744db407658b321",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1140.8719548092724,
+        "Y": 464.301756780388
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Create Sheets",
+        "Id": "5344eb8f1abc45aaa645bed1c0a5c21f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1139.1112772652748,
+        "Y": 683.70476486242819
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Types",
+        "Id": "e818027bca894879b1551ff627e9cb46",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 720.3188878389135,
+        "Y": 684.55947893083953
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Rotate Elements",
+        "Id": "d8a8786fd0f143bdb32d341c08baefd0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1139.4451221294582,
+        "Y": 354.97933206426063
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Apply View Template",
+        "Id": "267dc89dcb284f94808f4f943b5f67d3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1111.9521160200222,
+        "Y": 795.017901613759
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Get Linked Document",
+        "Id": "8a525eb6e0424ed8bac9a5c5692174d3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1109.7757290184386,
+        "Y": 910.73792479939448
+      }
+    ],
+    "Annotations": [],
+    "X": -131.85941557411337,
+    "Y": 26.20947259153678,
+    "Zoom": 0.57358360240592643
+  }
+}

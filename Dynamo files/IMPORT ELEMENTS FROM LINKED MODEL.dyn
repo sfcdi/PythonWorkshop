@@ -1,0 +1,377 @@
+{
+  "Uuid": "3c9d0464-8643-5ffe-96e5-ab1769818209",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "IMPORT ELEMENTS FROM LINKED MODEL",
+  "ElementResolver": {
+    "ResolutionMap": {
+      "List": {
+        "Key": "List",
+        "Value": "BuiltIn.ds"
+      }
+    }
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "DSRevitNodesUI.Categories, DSRevitNodesUI",
+      "SelectedIndex": 208,
+      "NodeType": "ExtensionNode",
+      "Id": "2d1dd93f776c49fab5bc7d08ab6077a2",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ade85876ee5d48d4884ffd954b6b00e6",
+          "Name": "Category",
+          "Description": "The selected Category.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All built-in categories."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "3bdb015eff944d08b644799bd88cb6b1",
+      "Inputs": [
+        {
+          "Id": "1b0660209f3442f2a8c6c8f680ea7df3",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "724d2ff490434c79925b01698ac4e6e7",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Rhythm.Revit.Application.Documents.CopyElementsFromDocument@var,Revit.Elements.Element[]",
+      "Id": "db75c8d1f23648ae8f5f4586c0f1446c",
+      "Inputs": [
+        {
+          "Id": "404dbc25a40e4f9f807144de3a56bfd3",
+          "Name": "sourceDocument",
+          "Description": "The document to copy from.\n\nvar",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d9ac4263770e48a78bf868fc89f2ade7",
+          "Name": "elements",
+          "Description": "The elements to copy.\n\nElement[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f1833c616f6f448b8462a845d2db9ed5",
+          "Name": "newElements",
+          "Description": "The copied elements.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "This node will copy the given elements from the given document into the active document.\n\nDocuments.CopyElementsFromDocument (sourceDocument: var, elements: Element[]): Element[]"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import System\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n# Import ToDSType(bool) extension method\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\n# Import geometry conversion extension methods\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\n# Import DocumentManager and TransactionManager\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\nfrom System.Collections.Generic import *\r\n# Import RevitAPI\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication\r\napp = uiapp.Application\r\nuidoc=DocumentManager.Instance.CurrentUIApplication.ActiveUIDocument\r\n\r\nLinkDoc=IN[0]\r\ncat = IN[1]\r\n#LinkInst = IN[2]\r\n\r\nBuiltIn = System.Enum.ToObject(BuiltInCategory, cat.Id)\r\n\r\nelementlist = []\r\ntypelist=[]\r\nT = []\r\n\r\n\r\ncollector = FilteredElementCollector(LinkDoc)\r\nfilter = ElementCategoryFilter(BuiltIn)\r\nlist=collector.WherePasses(filter).WhereElementIsNotElementType().ToElements()\r\n\r\n\r\nOUT = list",
+      "VariableInputPorts": true,
+      "Id": "9120cc6d3f8947cbbb3379ff3dbcb26c",
+      "Inputs": [
+        {
+          "Id": "97978b69d054431aa2d302f9bef036e4",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "dfc1f665917e40478fb28d9b03d9a83c",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "c0a97aa3b73e4ffc93d78476df3a5031",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# Import DocumentManager and TransactionManager\r\nclr.AddReference(\"RevitServices\")\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\nfrom System.Collections.Generic import *\r\n\r\n# Import RevitAPI\r\nclr.AddReference(\"RevitAPI\")\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\nfrom Autodesk.Revit.DB.Analysis import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\nuiapp = DocumentManager.Instance.CurrentUIApplication\r\napp = uiapp.Application\r\n\r\n# Import ToDSType(bool) extension method\r\nclr.AddReference(\"RevitNodes\")\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\n#The inputs to this node will be stored as a list in the IN variable.\r\ndataEnteringNode = IN\r\n\r\ncollector = Autodesk.Revit.DB.FilteredElementCollector(doc)\r\nlinkInstances = collector.OfClass(Autodesk.Revit.DB.RevitLinkInstance)\r\n\r\nlinkDoc, linkName, linkPath = [], [], []\r\nfor i in linkInstances:\r\n\tlinkDoc.append(i.GetLinkDocument())\r\n\tlinkName.append(i.Name)\r\n\ttry:\r\n\t\tlinkPath.append(i.GetLinkDocument().PathName)\r\n\texcept:\r\n\t\tlinkPath.append(None)\r\n\t\tpass\r\n\r\nOUT = linkDoc, linkName, linkInstances, linkPath",
+      "VariableInputPorts": true,
+      "Id": "7ce6d667765b4eab81aaf708fb65b146",
+      "Inputs": [
+        {
+          "Id": "d1222257c2da4721a17bffa495c08f78",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "70a4cbdf324942e69ae9fa488c2d1663",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "archModel = List.GetItemAtIndex(l, 0);\narchModel[0];",
+      "Id": "8d77f56ccb52439f9331d966919abfda",
+      "Inputs": [
+        {
+          "Id": "99e8089e7d6d4bd19a86caaebb316573",
+          "Name": "l",
+          "Description": "l",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "37c45b73b4954036ac492155ec292a0a",
+          "Name": "",
+          "Description": "archModel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "5a193453af084d359ecf6411b3a0b3c0",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "b9747672d7084337a14063c1569f2617",
+      "Inputs": [
+        {
+          "Id": "30d7aa19275d4d6c84f5a92635772813",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "734bb986de954b45b7be0c871aa22034",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "ade85876ee5d48d4884ffd954b6b00e6",
+      "End": "dfc1f665917e40478fb28d9b03d9a83c",
+      "Id": "608571f50af448d197db2ee639dabe6b"
+    },
+    {
+      "Start": "724d2ff490434c79925b01698ac4e6e7",
+      "End": "404dbc25a40e4f9f807144de3a56bfd3",
+      "Id": "9c0b604f2cfa46468dcf4f75875208a5"
+    },
+    {
+      "Start": "c0a97aa3b73e4ffc93d78476df3a5031",
+      "End": "d9ac4263770e48a78bf868fc89f2ade7",
+      "Id": "1a803a8140224c40978526f7ebe27c53"
+    },
+    {
+      "Start": "70a4cbdf324942e69ae9fa488c2d1663",
+      "End": "99e8089e7d6d4bd19a86caaebb316573",
+      "Id": "4328ce72f3fc4348a2cef2684284d4ed"
+    },
+    {
+      "Start": "37c45b73b4954036ac492155ec292a0a",
+      "End": "1b0660209f3442f2a8c6c8f680ea7df3",
+      "Id": "fea0c3e6917d46158b273205ee45ea24"
+    },
+    {
+      "Start": "5a193453af084d359ecf6411b3a0b3c0",
+      "End": "97978b69d054431aa2d302f9bef036e4",
+      "Id": "a2daf9f27b994d05bb9aea86e2b4eba2"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": 4861.8759765625,
+      "EyeY": 171.67506408691406,
+      "EyeZ": -1362.38916015625,
+      "LookX": 578.2857666015625,
+      "LookY": -281.05767822265625,
+      "LookZ": 297.06292724609375,
+      "UpX": 0.16972482204437256,
+      "UpY": 0.98162716627120972,
+      "UpZ": 0.087186910212039948
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "Categories",
+        "Id": "2d1dd93f776c49fab5bc7d08ab6077a2",
+        "IsSetAsInput": true,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 73.203094679871128,
+        "Y": 277.87632616513537
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "3bdb015eff944d08b644799bd88cb6b1",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 175.83842259935571,
+        "Y": -36.407806390163159
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Documents.CopyElementsFromDocument",
+        "Id": "db75c8d1f23648ae8f5f4586c0f1446c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 769.79942578992336,
+        "Y": 47.246916076243963
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Get All Elements From Linked Model",
+        "Id": "9120cc6d3f8947cbbb3379ff3dbcb26c",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 285.98935364969719,
+        "Y": 162.330448826287
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "7ce6d667765b4eab81aaf708fb65b146",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -405.20632350752231,
+        "Y": 157.59778906273678
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "8d77f56ccb52439f9331d966919abfda",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -248.0,
+        "Y": 145.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "b9747672d7084337a14063c1569f2617",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1129.0199350294681,
+        "Y": 52.21750912324066
+      }
+    ],
+    "Annotations": [],
+    "X": 195.59446506173003,
+    "Y": 106.00114883541255,
+    "Zoom": 0.85925362438907182
+  }
+}
