@@ -48,7 +48,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import clr\r\nimport System\r\n\r\nclass framing:\r\n\tdef __init__(self, data):\r\n\t\tself.id = data[0]\r\n\t\tself.designType = data[1]\r\n\t\tself.End_X = data[2]\r\n\t\tself.End_Y = data[3]\r\n\t\tself.End_Z = data[4]\r\n\t\tself.Start_X = data[5]\r\n\t\tself.Start_Y = data[6]\r\n\t\tself.Start_Z = data[7]\r\n\t\t\r\nfilePath = \"E:/SFDUG/PythonWorkshop/CSV_files/framing.csv\"\r\n\r\nfileReader = System.IO.StreamReader(filePath)\r\n\r\nout = []\r\n\r\nwhile fileReader.Peek() > -1: \r\n\tline = fileReader.ReadLine()\r\n\trow = line.Split(\",\")\r\n\tobj = framing(row)\r\n\tout.append(obj)\r\n\t\r\nOUT = out\r\n\t",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "b2211bcaa0b44aaeb2420ab981ddb44e",
       "Inputs": [],
@@ -100,7 +100,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import clr \r\nimport System\r\n\r\nclass framing:\r\n\tdef __init__(self, row):\r\n\t\tself.id = row[0]\r\n\t\tself.designType  = row[1]\r\n\t\tself.End_X = row[2]\r\n\t\tself.End_Y = row[3]\r\n\t\tself.End_Z = row[4]\r\n\t\tself.Start_X = row[5]\r\n\t\tself.Start_Y = row[6]\r\n\t\tself.Start_Z = row[7]\r\n\t\t\r\nfilepath = \"E:/SFDUG/PythonWorkshop/CSV_files/framingUpdate.csv\"\r\nfileReader = System.IO.StreamReader(filepath)\r\n\r\nout = []\r\n\r\nwhile fileReader.Peek() > -1:\r\n\tline = fileReader.ReadLine()\r\n\trow = line.Split(\",\")\r\n\tobj = framing(row)\r\n\tout.append(obj)\r\n\t\r\nfileReader.Close()\r\n\r\nOUT = out\r\n\t",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "7370e1f4ab9648cf9aed918dfbcd7692",
       "Inputs": [],
@@ -373,7 +373,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 983.85515998764947,
-        "Y": -193.29438405920334
+        "Y": -192.01066167069118
       },
       {
         "ShowGeometry": true,
@@ -393,7 +393,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 1017.2079622535714,
-        "Y": 8.80107305307422
+        "Y": 10.084795441586436
       },
       {
         "ShowGeometry": true,
@@ -433,7 +433,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 968.996140422204,
-        "Y": 475.791042497879
+        "Y": 477.07476488639139
       },
       {
         "ShowGeometry": true,
@@ -442,8 +442,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1055.9782477863373,
-        "Y": 686.97372093891829
+        "X": 996.21949016792018,
+        "Y": 658.85705855068159
       },
       {
         "ShowGeometry": true,
@@ -472,8 +472,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1111.4912880242898,
-        "Y": 846.4131558528394
+        "X": 993.38882828116107,
+        "Y": 825.87359763664324
       },
       {
         "ShowGeometry": true,
@@ -482,8 +482,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1089.3715138222165,
-        "Y": 972.70034190804029
+        "X": 982.36882823608676,
+        "Y": 947.72087402904469
       },
       {
         "ShowGeometry": true,
@@ -497,8 +497,8 @@
       }
     ],
     "Annotations": [],
-    "X": -5.2969544803370923,
-    "Y": 138.98932007166718,
-    "Zoom": 0.41909571711189769
+    "X": -13.403988778582686,
+    "Y": 141.10670949058539,
+    "Zoom": 0.42723769686131874
   }
 }
