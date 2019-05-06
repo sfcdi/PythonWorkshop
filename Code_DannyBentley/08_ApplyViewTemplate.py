@@ -36,7 +36,7 @@ viewTemp = GetViewTemplate()
 
 # apply view template to views. 
 for i in viewList:
-	if i.Name == 'Level 1' or v.Name == 'Level 2':
+	if i.Name == 'Level 1' or i.Name == 'Level 2':
 		TransactionManager.Instance.EnsureInTransaction(doc)
-		v.ViewTemplateId = viewTemp[0].Id
+		i.ViewTemplateId = viewTemp[0].Id
 		TransactionManager.Instance.TransactionTaskDone()

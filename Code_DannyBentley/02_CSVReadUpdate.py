@@ -25,7 +25,7 @@ while filereader.Peek() > -1:
 	line = filereader.ReadLine()
 	row = line.Split(",")
 	obj = framing(row)
-	out.append(frame)
+	out.append(obj)
 	
 filereader.Close()
 	

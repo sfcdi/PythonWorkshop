@@ -38,10 +38,6 @@ doc = DocumentManager.Instance.CurrentDBDocument
 
 CSVdata = IN[0]
 
-# collect all level in project
-levels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().ToElements()
-# use function to get level in project.
-level_1 = getlevel("LEVEL 01", levels)
 # collect all structural fframing elements 
 elements = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).WhereElementIsNotElementType().ToElements()
 # Use function to create dictionary of elements 

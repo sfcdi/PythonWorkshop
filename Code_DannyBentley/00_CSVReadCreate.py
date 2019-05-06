@@ -1,8 +1,6 @@
 # Enable Python support and load DesignScript library
 import clr
 import System
-clr.AddReference('ProtoGeometry')
-from Autodesk.DesignScript.Geometry import *
 
 # Object class for CSV file data
 class framing:
@@ -17,7 +15,7 @@ class framing:
 		self.Start_Z = row[7]
 		
 # read file from path
-filepath = "E:/SFDUG/Workshop/CSV_files/framing.csv"
+filepath = "E:/SFDUG/PythonWorkshop/CSV_files/framing.csv"
 filereader = System.IO.StreamReader(filepath)
 
 out = []
@@ -26,8 +24,8 @@ out = []
 while filereader.Peek() > -1:
 	line = filereader.ReadLine()
 	row = line.Split(",")
-	frame = framing(row)
-	out.append(frame)
+	obj = framing(row)
+	out.append(obj)
 	
 # close file
 filereader.Close()

@@ -17,7 +17,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndef getFamilyType(name, familySymbols):\r\n\tfor i in familySymbols:\r\n\t\tif Element.Name.GetValue(i) == name:\r\n\t\t\treturn i\r\n\t\t\t\r\n\t\t\t\r\ndef getLevel(name, levels):\r\n\tfor i in levels:\r\n\t\tif i.Name == name:\r\n\t\t\treturn i\r\n\t\t\t\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nlevels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().ToElements()\r\n\r\nlevel_01 = getLevel('LEVEL 01', levels)\r\n\r\nfamilySymbols = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).OfClass(FamilySymbol).ToElements()\r\n\r\nCSVdata = IN[0]\r\nout = []\r\n\r\nfor f in CSVdata[1:]:\r\n\tsx, sy, sz = float(f.Start_X), float(f.Start_Y), float(f.Start_Z)\r\n\tex, ey, ez = float(f.End_X), float(f.End_Y), float(f.End_Z)\r\n\t\r\n\tpoint_s = XYZ(sx,sy,sz)\r\n\tpoint_e = XYZ(ex,ey,ez)\r\n\tline = Autodesk.Revit.DB.Line.CreateBound(point_s,point_e)\r\n\t\r\n\ttype = getFamilyType(f.designType, familySymbols)\r\n\t\r\n\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n\tif type.IsActive == False:\r\n\t\ttype.Activate()\r\n\t\tdoc.Regenerate()\r\n\t\t\r\n\tnew_framing = doc.Create.NewFamilyInstance(line, type, level_01, Structure.StructuralType.Beam)\r\n\tTransactionManager.Instance.TransactionTaskDone()\r\n\t\r\n\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n\tdoc.Regenerate()\r\n\tp = new_framing.LookupParameter('id')\r\n\tp.Set(f.id)\r\n\tTransactionManager.Instance.TransactionTaskDone()\r\n\t\r\n\tout.append(new_framing)\r\n\r\nOUT = out\r\n\r\n\r\n\r\n",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "fc71a25b1abf4c2da953d4576754e9cd",
       "Inputs": [
@@ -48,7 +48,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nimport System\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# Object class for CSV file data\r\nclass framing:\r\n\tdef __init__(self, row):\r\n\t\tself.id = row[0]\r\n\t\tself.designType = row[1]\r\n\t\tself.End_X = row[2]\r\n\t\tself.End_Y = row[3]\r\n\t\tself.End_Z = row[4]\r\n\t\tself.Start_X = row[5]\r\n\t\tself.Start_Y = row[6]\r\n\t\tself.Start_Z = row[7]\r\n\t\t\r\n# read file from path\r\nfilepath = \"E:/SFDUG/PythonWorkshop/CSV_files/framing.csv\"\r\nfilereader = System.IO.StreamReader(filepath)\r\n\r\nout = []\r\n\r\n# loop over items in CSV file. \r\nwhile filereader.Peek() > -1:\r\n\tline = filereader.ReadLine()\r\n\trow = line.Split(\",\")\r\n\tframe = framing(row)\r\n\tout.append(frame)\r\n\t\r\n# close file\r\nfilereader.Close()\r\n\t\r\nOUT = out",
+      "Code": "import clr\r\nimport System\r\n\r\nclass framing:\r\n\tdef __init__(self, data):\r\n\t\tself.id = data[0]\r\n\t\tself.designType = data[1]\r\n\t\tself.End_X = data[2]\r\n\t\tself.End_Y = data[3]\r\n\t\tself.End_Z = data[4]\r\n\t\tself.Start_X = data[5]\r\n\t\tself.Start_Y = data[6]\r\n\t\tself.Start_Z = data[7]\r\n\t\t\r\nfilePath = \"E:/SFDUG/PythonWorkshop/CSV_files/framing.csv\"\r\n\r\nfileReader = System.IO.StreamReader(filePath)\r\n\r\nout = []\r\n\r\nwhile fileReader.Peek() > -1: \r\n\tline = fileReader.ReadLine()\r\n\trow = line.Split(\",\")\r\n\tobj = framing(row)\r\n\tout.append(obj)\r\n\t\r\nOUT = out\r\n\t",
       "VariableInputPorts": true,
       "Id": "b2211bcaa0b44aaeb2420ab981ddb44e",
       "Inputs": [],
@@ -69,7 +69,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndef getFamilyType(name, familySymbols):\r\n\tfor i in familySymbols:\r\n\t\tif Element.Name.GetValue(i) == name:\r\n\t\t\treturn i\r\n\t\t\t\r\ndef getLevel(name, levels):\r\n\tfor i in levels:\r\n\t\tif i.Name == name:\r\n\t\t\treturn i\r\n\t\t\t\r\ndef dictStrucFraming(elements):\r\n\tdict = {}\r\n\tfor i in elements:\r\n\t\tkey = i.LookupParameter(\"id\").AsString()\r\n\t\tdict.Add(key, i)\r\n\treturn dict\r\n\t\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nCSVdata = IN[0]\r\n\r\nlevels = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Levels).WhereElementIsNotElementType().ToElements()\r\n\r\nfamilySymbols = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).OfClass(FamilySymbol).ToElements()\r\n\r\nelements = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).WhereElementIsNotElementType().ToElements()\r\n\r\ndictStruc = dictStrucFraming(elements)\r\n\r\nfor i in CSVdata[1:]:\r\n\tdesignType = i.designType\r\n\telement = dictStruc[i.id]\r\n\t\r\n\tif element.Name != designType:\r\n\t\ttype = getFamilyType(designType, familySymbols)\r\n\t\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n\t\telement.Symbol = type\r\n\t\tTransactionManager.Instance.TransactionTaskDone()\r\n\t\t\r\n",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "eee85a093de2453a927c68bfcc035f6b",
       "Inputs": [
@@ -121,7 +121,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndef OverrideElement(element, color, fill):\r\n\ti = OverrideGraphicSettings()\r\n\ti.SetProjectionFillColor(color)\r\n\ti.SetProjectionFillPatternId(fill.Id)\r\n\tdoc.ActiveView.SetElementOverrides(element.Id, i)\r\n\t\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nelements = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).WhereElementIsNotElementType().ToElements()\r\n\r\nred = Autodesk.Revit.DB.Color(255, 0,0)\r\n\r\nfill = UnwrapElement(IN[0])\r\n\r\nfor i in elements:\r\n\tif i.Name == 'HSS6X0.125':\r\n\t\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n\t\tOverrideElement(i, red, fill)\r\n\t\tTransactionManager.Instance.TransactionTaskDone()\r\n\t\t\r\n",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "0555d7fa24674078ade4ea04a15d3bef",
       "Inputs": [
@@ -172,7 +172,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\nclr.AddReference('System')\r\nfrom System.Collections.Generic import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nelements = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).WhereElementIsNotElementType()\r\n\r\nids = List[ElementId]()\r\n\r\nfor i in elements:\r\n\tids.Add(i.Id)\r\n\t\r\nnew_location = XYZ(10, 10, 0)\r\n\r\n#TransactionManager.Instance.EnsureInTransaction(doc)\r\n#ElementTransformUtils.MoveElements(doc, ids, new_location)\r\n#TransactionManager.Instance.TransactionTaskDone()\r\n\t\r\n",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "74f9c93575914c8b8744db407658b321",
       "Inputs": [],
@@ -193,7 +193,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nsheetNum = ['S1.01', 'S1.02']\r\nsheetName = ['level 01', 'level 02']\r\n\r\ntitleblock = UnwrapElement(IN[0])\r\n\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nfor i in range(len(sheetNum)):\r\n\tnewSheet = ViewSheet.Create(doc, titleblock.Id)\r\n\tnewSheet.SheetNumber = sheetNum[i]\r\n\tnewSheet.Name = sheetName[i]\r\n\t\r\nTransactionManager.Instance.TransactionTaskDone()",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "5344eb8f1abc45aaa645bed1c0a5c21f",
       "Inputs": [
@@ -244,7 +244,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import sys\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\nclr.AddReference('System')\r\nfrom System.Collections.Generic import *\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nelements = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).WhereElementIsNotElementType()\r\n\r\nids = List[ElementId]()\r\n\r\nfor i in elements:\r\n\tids.Add(i.Id)\r\n\r\nangle = 10\r\norigin = XYZ(0,0,0)\r\noffset = XYZ(0,0,10)\r\nrot_axis = Line.CreateBound(origin, offset)\r\n\r\n#TransactionManager.Instance.EnsureInTransaction(doc)\r\n#ElementTransformUtils.RotateElements(doc, ids, rot_axis, angle)\r\n#TransactionManager.Instance.TransactionTaskDone()\r\n",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "d8a8786fd0f143bdb32d341c08baefd0",
       "Inputs": [],
@@ -265,7 +265,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\ndef GetViewTemplate():\r\n\tviews = FilteredElementCollector(doc).OfClass(View)\r\n\tviewTemp = []\r\n\tfor i in views:\r\n\t\tif i.IsTemplate == True:\r\n\t\t\tviewTemp.append(i)\r\n\t\t\t\r\n\treturn viewTemp\r\n\t\r\ndef GetViews():\r\n\tviews = FilteredElementCollector(doc).OfClass(View)\r\n\treturn views\r\n\t\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nviewList = GetViews()\r\n\r\nviewTemp = GetViewTemplate()\r\n\r\n#for i in viewList:\r\n#\tif i.Name == 'Level 1' or i.Name == 'Level 2':\r\n#\t\tTransactionManager.Instance.EnsureInTransaction(doc)\r\n#\t\ti.ViewTemplateId = viewTemp[0].Id\r\n#\t\tTransactionManager.Instance.TransactionTaskDone()\r\n\r\n\r\n\r\n\r\n",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "267dc89dcb284f94808f4f943b5f67d3",
       "Inputs": [],
@@ -286,7 +286,7 @@
     {
       "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
       "NodeType": "PythonScriptNode",
-      "Code": "import clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitAPI')\r\nimport Autodesk\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nimport RevitServices\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\nfrom System.Collections.Generic import List\r\n\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\nlinkedDoc = FilteredElementCollector(doc).OfClass(RevitLinkInstance)\r\n\r\nlinkDoc, transform = [], []\r\n\r\nfor i in linkedDoc:\r\n\tlinkDoc.append(i.GetLinkDocument())\r\n\ttransform.append(i.GetTotalTransform())\r\n\t\r\nelements = FilteredElementCollector(linkDoc[0]).OfCategory(BuiltInCategory.OST_Grids).WhereElementIsNotElementType().ToElements()\r\n\r\nids = List[ElementId]()\r\n\r\nfor i in elements:\r\n\tids.Add(i.Id)\r\n\t\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\ncopy = ElementTransformUtils.CopyElements(linkDoc[0], ids, doc, transform[0],  None)\r\nTransactionManager.Instance.TransactionTaskDone()\r\n\t",
+      "Code": "",
       "VariableInputPorts": true,
       "Id": "8a525eb6e0424ed8bac9a5c5692174d3",
       "Inputs": [],
@@ -303,9 +303,44 @@
       ],
       "Replication": "Disabled",
       "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "5cf3dffa8e16440989c422dd9878d2d7",
+      "Inputs": [
+        {
+          "Id": "e5deafe44e064a13aa4393c63dc8300b",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e304dd42f6d248bc979c81f9a7f8b184",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
     }
   ],
-  "Connectors": [],
+  "Connectors": [
+    {
+      "Start": "9c2eac746a5a4b39a88666f1f70b34e9",
+      "End": "e5deafe44e064a13aa4393c63dc8300b",
+      "Id": "aa19eccdb07449d9afbbd167ef4a7803"
+    }
+  ],
   "Dependencies": [],
   "Bindings": [],
   "View": {
@@ -337,8 +372,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1128.9936495107447,
-        "Y": -127.06586508593793
+        "X": 983.85515998764947,
+        "Y": -193.29438405920334
       },
       {
         "ShowGeometry": true,
@@ -347,8 +382,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 939.647903069975,
-        "Y": -144.64165022856861
+        "X": 732.95265446184123,
+        "Y": -166.87367352002536
       },
       {
         "ShowGeometry": true,
@@ -357,8 +392,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1116.7776377042633,
-        "Y": 11.575220773608748
+        "X": 1017.2079622535714,
+        "Y": 8.80107305307422
       },
       {
         "ShowGeometry": true,
@@ -367,8 +402,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 916.91235316345183,
-        "Y": -15.860612728589189
+        "X": 769.0005865593007,
+        "Y": 8.01932675265644
       },
       {
         "ShowGeometry": true,
@@ -377,8 +412,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1129.4484768326652,
-        "Y": 151.72323623369397
+        "X": 994.59926020487319,
+        "Y": 187.06397742049427
       },
       {
         "ShowGeometry": true,
@@ -387,8 +422,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 897.05904729127872,
-        "Y": 195.039962071984
+        "X": 748.59071904351879,
+        "Y": 168.83966885179115
       },
       {
         "ShowGeometry": true,
@@ -397,8 +432,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1135.5730869576444,
-        "Y": 513.97864288940252
+        "X": 968.996140422204,
+        "Y": 475.791042497879
       },
       {
         "ShowGeometry": true,
@@ -407,8 +442,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1139.1112772652748,
-        "Y": 683.70476486242819
+        "X": 1055.9782477863373,
+        "Y": 686.97372093891829
       },
       {
         "ShowGeometry": true,
@@ -417,8 +452,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 720.3188878389135,
-        "Y": 684.55947893083953
+        "X": 589.40678851250868,
+        "Y": 678.01387396451946
       },
       {
         "ShowGeometry": true,
@@ -427,8 +462,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1139.4451221294582,
-        "Y": 352.99225661990005
+        "X": 967.60092036760489,
+        "Y": 335.21527023074236
       },
       {
         "ShowGeometry": true,
@@ -437,8 +472,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1145.0700400926987,
-        "Y": 801.64148642829434
+        "X": 1111.4912880242898,
+        "Y": 846.4131558528394
       },
       {
         "ShowGeometry": true,
@@ -447,13 +482,23 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1136.9324267580332,
-        "Y": 947.16764127933857
+        "X": 1089.3715138222165,
+        "Y": 972.70034190804029
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "5cf3dffa8e16440989c422dd9878d2d7",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1323.3425266210857,
+        "Y": -260.05830081667773
       }
     ],
     "Annotations": [],
-    "X": -686.00825921483852,
-    "Y": -405.02113405957971,
-    "Zoom": 1.0065043104810649
+    "X": -5.2969544803370923,
+    "Y": 138.98932007166718,
+    "Zoom": 0.41909571711189769
   }
 }
