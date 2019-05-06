@@ -19,17 +19,20 @@ from System.Collections.Generic import *
 doc = DocumentManager.Instance.CurrentDBDocument
 # collect all structural elements. 
 elements = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_StructuralFraming).WhereElementIsNotElementType().ToElements()
+
+# List of element ids 
+Ids = List[ElementId]()
+
+# Add all element ids to list. 
+for i in elements:
+	Ids.Add(i.Id)
+
 # create angle and axis point to rotate around. 
 angle = 45
 origin = XYZ(0,0,0)
 offset = XYZ(0,0,1)
 rot_axis = Line.CreateBound(origin, offset)
-# List of element ids 
-Ids = List[ElementId]()
 
-# Add all element ids to list. 
-for e in elements:
-	Ids.Add(e.Id)
 	
 TransactionManager.Instance.EnsureInTransaction(doc)
 # Rotate list of elements. 

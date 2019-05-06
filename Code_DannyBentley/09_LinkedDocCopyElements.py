@@ -29,14 +29,14 @@ for i in linkedDoc:
 # collect all grids from linked document. 
 elements = FilteredElementCollector(linkDoc[0]).OfCategory(BuiltInCategory.OST_Grids).WhereElementIsNotElementType().ToElements()
 # list of elements ids 
-eId = List[ElementId]()
+ids = List[ElementId]()
 # add all elements ids to list 
-for e in elements:
-	eId.Add(e.Id)
+for i in elements:
+	ids.Add(i.Id)
 
 # Copy elements from linked model to current model. 
 TransactionManager.Instance.EnsureInTransaction(doc)
-copy = ElementTransformUtils.CopyElements(linkDoc[0], eId, doc, transform[0], None)
+copy = ElementTransformUtils.CopyElements(linkDoc[0], ids, doc, transform[0], None)
 TransactionManager.Instance.TransactionTaskDone()
 
 OUT = copy

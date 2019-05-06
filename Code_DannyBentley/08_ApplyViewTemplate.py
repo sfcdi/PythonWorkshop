@@ -15,12 +15,12 @@ from Autodesk.Revit.DB import *
 # Function to get all view templates. 
 def GetViewTemplate():
 	views = FilteredElementCollector(doc).OfClass(View)
-	viewList = list()
+	viewTemp = list()
 	
-	for view in views:
-		if view.IsTemplate == True:
-			viewList.append(view)
-	return viewList
+	for i in views:
+		if i.IsTemplate == True:
+			viewTemp.append(i)
+	return viewTemp
 	
 # Function to collect all view in project. 
 def GetViews():
@@ -33,11 +33,10 @@ doc = DocumentManager.Instance.CurrentDBDocument
 viewList = GetViews()
 # use function to get view templates 
 viewTemp = GetViewTemplate()
-out = []
 
 # apply view template to views. 
-for v in viewList:
-	if v.Name == 'Level 1' or v.Name == 'Level 2':
+for i in viewList:
+	if i.Name == 'Level 1' or v.Name == 'Level 2':
 		TransactionManager.Instance.EnsureInTransaction(doc)
 		v.ViewTemplateId = viewTemp[0].Id
 		TransactionManager.Instance.TransactionTaskDone()

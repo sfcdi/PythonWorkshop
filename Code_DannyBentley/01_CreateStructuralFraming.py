@@ -16,13 +16,13 @@ from Autodesk.Revit.DB import *
 # Function to get family type
 def getFamilyType(name, familySymbols):
 	for i in familySymbols:
-		if Autodesk.Revit.DB.Element.Name.GetValue(i) == name:
+		if Element.Name.GetValue(i) == name:
 			return i
 # Function to get leve by name	
 def getlevel(name, levels):
-	for l in levels:
-		if l.Name == name:
-			return l
+	for i in levels:
+		if i.Name == name:
+			return i
 #Current document
 doc = DocumentManager.Instance.CurrentDBDocument
 # data from CSV file
@@ -39,12 +39,8 @@ familySymbols = FilteredElementCollector(doc).OfCategory(BuiltInCategory.OST_Str
 
 # loop over CSV data 
 for f in CSVdata[1:]:
-	sx = float(f.Start_X)
-	sy = float(f.Start_Y)
-	sz = float(f.Start_Z)
-	ex = float(f.End_X)
-	ey = float(f.End_Y)
-	ez = float(f.End_Z)
+	sx, sy, sz = float(f.Start_X), float(f.Start_Y), float(f.Start_Z)
+	ex, ey, ez = float(f.End_X), float(f.End_Y), float(f.End_Z)
 	# create Revit points and lines. 
 	point_S = XYZ(sx, sy, sz)
 	point_E = XYZ(ex, ey, ez)
@@ -66,7 +62,7 @@ for f in CSVdata[1:]:
 	p = new_framing.LookupParameter('id')
 	p.Set(f.id)
 	TransactionManager.Instance.TransactionTaskDone()
-	out.append(framing)
+	out.append(new_framing)
 
 	# Help visualize in Dynamo using Dynamo. 
 	#point_I = Autodesk.DesignScript.Geometry.Point.ByCoordinates(sx, sy, sz)
