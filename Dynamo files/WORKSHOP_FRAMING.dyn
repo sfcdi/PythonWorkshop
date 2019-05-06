@@ -334,13 +334,7 @@
       "Description": "Visualize the output of node."
     }
   ],
-  "Connectors": [
-    {
-      "Start": "9c2eac746a5a4b39a88666f1f70b34e9",
-      "End": "e5deafe44e064a13aa4393c63dc8300b",
-      "Id": "aa19eccdb07449d9afbbd167ef4a7803"
-    }
-  ],
+  "Connectors": [],
   "Dependencies": [],
   "Bindings": [],
   "View": {
