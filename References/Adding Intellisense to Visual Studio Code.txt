@@ -1,0 +1,13 @@
+1.	Download Visual Studio Code (https://code.visualstudio.com/)
+2.	Git hub site https://github.com/gtalarico/ironpython-stubs click the Clone or download and download zip file.  
+3.	Unzip the file and copy to the folder location.  C:\Users\danny.bentley\.vscode replace my name with your name.  
+4.	Open Visual Studio Code.  Go to: File>Preference>Settings.  
+5.	Search json and click Edit in Settings.json 
+6.	Add the file path below and replace my.user.name with your username.  If another setting is added you must separate it with a comma.  
+
+{
+	"python.autoComplete.extraPaths": [
+		"C:\\Users\\my.user.name\\.vscode\\ironpython-stubs-master\\release\\stubs.min"
+		]	
+			
+}
