@@ -1,0 +1,2 @@
+https://boostyourbim.wordpress.com/2018/05/17/revit-lookup-2019-installer/
+You can get the installer for the Revit Lookup tool above.  It's helpful to find what class something is, and what methods / properties are available for that class.

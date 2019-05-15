@@ -1,0 +1,717 @@
+{
+  "Uuid": "51c4a750-2f59-47e0-a599-fd40bf4893e8",
+  "IsCustomNode": false,
+  "Description": null,
+  "Name": "190511-PCW",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\n\r\n# Place your code below this line\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = dir(Revit.Elements)",
+      "VariableInputPorts": true,
+      "Id": "46f08f716b31463ea9d46e3a2e3b9ac0",
+      "Inputs": [
+        {
+          "Id": "68753e20f66449609df6eaca436494c6",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a10783d7ecbf454aa27c5891190cbb27",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\nclr.AddReference('RevitNodes')\r\nfrom Revit.Elements import*\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\nfamily = IN[0]\r\nlevel = IN[1]\r\noutput = []\r\n\r\nfor x in range(0,100,10):\r\n\tpoint = Point.ByCoordinates(x,0,0)\r\n\tcolumns = FamilyInstance.ByPointAndLevel(family,point,level)\r\n\toutput.append(columns)\r\n\r\n# Place your code below this line\r\n\r\n# Assign your output to the OUT variable.\r\nOUT = output",
+      "VariableInputPorts": true,
+      "Id": "da5951696f3247c2ad9aa3a7632daaeb",
+      "Inputs": [
+        {
+          "Id": "66c904c4a1a84b13b3f7a978a129f2b5",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "78dd21f92fac4b40b5929add5478c6ff",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d23911ce2b7049a8b92a58c44adeccca",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyInstance.ByPointAndLevel@Revit.Elements.FamilyType,Autodesk.DesignScript.Geometry.Point,Revit.Elements.Level",
+      "Id": "4bafc84f10d14ff188552025b40805c2",
+      "Inputs": [
+        {
+          "Id": "f2a75c02d1ab41f59c34ed3be63848d9",
+          "Name": "familyType",
+          "Description": "Family Type. Also called Family Symbol.\n\nFamilyType",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c61cbc43245243ecba55214d8f0f2a8d",
+          "Name": "point",
+          "Description": "Point in meters.\n\nPoint",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "ce3108f9227c495192a024f4e380519a",
+          "Name": "level",
+          "Description": "Level to host Family Instance.\n\nLevel",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "8e59681aa31b42a380c2b245993956bc",
+          "Name": "FamilyInstance",
+          "Description": "FamilyInstance",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Place a Revit FamilyInstance given the FamilyType (also known as the FamilySymbol in the Revit API), it's coordinates in world space, and the Level\n\nFamilyInstance.ByPointAndLevel (familyType: FamilyType, point: Point, level: Level): FamilyInstance"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.Levels, DSRevitNodesUI",
+      "SelectedIndex": 0,
+      "NodeType": "ExtensionNode",
+      "Id": "2391f353826e4d80b0359565f87f87f4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "c92c39a6ef0a4efdbb025f1b159b658a",
+          "Name": "Levels",
+          "Description": "The selected Levels",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Select a level in the active document"
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 2,
+      "NodeType": "ExtensionNode",
+      "Id": "5dbd504cb03d4c72ab79d412c2ad9681",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "38f06869f9d245bcb7b895a425e0ead3",
+          "Name": "Family Type",
+          "Description": "The selected Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All family types available in the document."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n#import RevitAPI\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\nfamilytype = UnwrapElement(IN[0])\r\noutput = []\r\n\r\n# Place your code below this line\r\n#Assign Document\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n#Start Transaction\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\n\r\nfor x in range (0,100,10):\r\n\tfam = doc.Create.NewFamilyInstance(XYZ(x,x,0), familytype,Structure.StructuralType.NonStructural)\r\n\toutput.append(fam)\r\n\t\r\n#End Transaction\r\nTransactionManager.Instance.TransactionTaskDone()\r\n\t\r\n# Assign your output to the OUT variable.\r\nOUT = output",
+      "VariableInputPorts": true,
+      "Id": "0c52ed5af18c40f3aa8b919430fedfa8",
+      "Inputs": [
+        {
+          "Id": "6c7a71cf0b3d4b4fbc4afb94832676ae",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "a325bee5b91948ceb86197fe7d38bd6c",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 1,
+      "NodeType": "ExtensionNode",
+      "Id": "ea154f0e8520452297ca4852b15f781f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "041526a5ef754d7d966fe54a31933c91",
+          "Name": "Family Type",
+          "Description": "The selected Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All family types available in the document."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.Family.Types",
+      "Id": "fbb56eda7f5742f7a6a2f4c3a104ed0f",
+      "Inputs": [
+        {
+          "Id": "7c918237a77a494088451df105ec58ca",
+          "Name": "family",
+          "Description": "Revit.Elements.Family",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d590133abc3d4dfea10e431d83b9f861",
+          "Name": "FamilyType[]",
+          "Description": "FamilyType[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Obtain the FamilyTypes from this Family\n\nFamily.Types: FamilyType[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyType.Family",
+      "Id": "574d709247944ffdba35bd9bafc8a1aa",
+      "Inputs": [
+        {
+          "Id": "8feebcf7803f4b2c96f1f64aa5a8eb08",
+          "Name": "familyType",
+          "Description": "Revit.Elements.FamilyType",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "276a352e843c434cbe4c97c1579b9e7c",
+          "Name": "Family",
+          "Description": "Family",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Get the parent family of this FamilyType\n\nFamilyType.Family: Family"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "Revit.Elements.FamilyInstance.ByFamilyType@Revit.Elements.FamilyType",
+      "Id": "317d176e44a2469da5bbe9df0a9de2c5",
+      "Inputs": [
+        {
+          "Id": "6af7ae9a69fd4263a832e5cc37138bf1",
+          "Name": "familyType",
+          "Description": "Family Type. Also called Family Symbol.\n\nFamilyType",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "500c03015af44f22b3da21e492c27745",
+          "Name": "FamilyInstance[]",
+          "Description": "FamilyInstance[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Obtain a collection of FamilyInstances from the Revit Document and use them in the Dynamo graph\n\nFamilyInstance.ByFamilyType (familyType: FamilyType): FamilyInstance[]"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python Support and load DesignScript Library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n#Import Revit API\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\n#Import Manger classes\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n#Import DSType method\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\n\r\n#Inputs to this Node\r\nfam = UnwrapElement(IN[0])\r\noutput = []\r\n\r\n#Assign Document\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n#Start Transaction\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nfor x in range (0,50,10):\r\n\tfamarray = doc.Create.NewFamilyInstance(XYZ(x,40,0),fam, Structure.StructuralType.NonStructural)\r\n\twrappedfamarray = famarray.ToDSType(False)\r\n\toutput.append(wrappedfamarray)\r\n\t\r\n\r\n\r\n#Assign your output to the OUT variable\r\nOUT = output",
+      "VariableInputPorts": true,
+      "Id": "f167ad0beb334b97a74c03fb04081214",
+      "Inputs": [
+        {
+          "Id": "818a6ed003164dee9b46d2ad86dd290a",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "b0840bfb8d3e41bd998dfabd355117ae",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 2,
+      "NodeType": "ExtensionNode",
+      "Id": "6be9fd015fa84786b09535d76bbaa11f",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "45a118630e8e410bb6dd349ce64e4025",
+          "Name": "Family Type",
+          "Description": "The selected Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All family types available in the document."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python Support and load DesignScript Library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n#Import Revit API\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import *\r\n\r\n#Import Manger classes\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\n#Import DSType method\r\nclr.AddReference('RevitNodes')\r\nimport Revit\r\nclr.ImportExtensions(Revit.Elements)\r\nclr.ImportExtensions(Revit.GeometryConversion)\r\n\r\n#Inputs to this Node\r\nfam = UnwrapElement(IN[0])\r\noutput = []\r\n\r\n#Assign Document\r\ndoc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n#Start Transaction\r\nTransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\nfor x in range (0,50,10):\r\n\tfamarray = doc.Create.NewFamilyInstance(XYZ(x,x,0),fam, Structure.StructuralType.NonStructural)\r\n\twrappedfamarray = famarray.ToDSType(False)\r\n\t\r\n\txyz = XYZ(x,x,0)\r\n\toutput.append(xyz.ToPoint())\r\n\t\r\n\r\n\r\n#Assign your output to the OUT variable\r\nOUT = output",
+      "VariableInputPorts": true,
+      "Id": "a73709f76eaa4d62a32640a8816b07c4",
+      "Inputs": [
+        {
+          "Id": "3b114ff198a14699bcebf93bebf566de",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "1798ecad4c7648878054aba9caf36315",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "DSRevitNodesUI.FamilyTypes, DSRevitNodesUI",
+      "SelectedIndex": 2,
+      "NodeType": "ExtensionNode",
+      "Id": "ab0c13803e63424baa79f3106c23052d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "561397cefaee4b3093774ba91307e1d8",
+          "Name": "Family Type",
+          "Description": "The selected Family Type",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "All family types available in the document."
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "c92c39a6ef0a4efdbb025f1b159b658a",
+      "End": "78dd21f92fac4b40b5929add5478c6ff",
+      "Id": "dd2b34c7fa08405bb8e90c3600280e40"
+    },
+    {
+      "Start": "38f06869f9d245bcb7b895a425e0ead3",
+      "End": "66c904c4a1a84b13b3f7a978a129f2b5",
+      "Id": "0a09eda5aef64cbb8fd0f9447cdd9a4f"
+    },
+    {
+      "Start": "041526a5ef754d7d966fe54a31933c91",
+      "End": "8feebcf7803f4b2c96f1f64aa5a8eb08",
+      "Id": "efc338b2ea6d4d01a84a23bc674f0b97"
+    },
+    {
+      "Start": "041526a5ef754d7d966fe54a31933c91",
+      "End": "6c7a71cf0b3d4b4fbc4afb94832676ae",
+      "Id": "47413fef4110413c91af04425d2042a8"
+    },
+    {
+      "Start": "d590133abc3d4dfea10e431d83b9f861",
+      "End": "6af7ae9a69fd4263a832e5cc37138bf1",
+      "Id": "1d5d4e49ad9c43a9a81b70ef0dbf1371"
+    },
+    {
+      "Start": "276a352e843c434cbe4c97c1579b9e7c",
+      "End": "7c918237a77a494088451df105ec58ca",
+      "Id": "77d2425fcfeb4023bf74b43cf92fc930"
+    },
+    {
+      "Start": "45a118630e8e410bb6dd349ce64e4025",
+      "End": "818a6ed003164dee9b46d2ad86dd290a",
+      "Id": "832d39941662447a80ab4f532f9ac856"
+    },
+    {
+      "Start": "561397cefaee4b3093774ba91307e1d8",
+      "End": "3b114ff198a14699bcebf93bebf566de",
+      "Id": "491ec11e9f7346498b1f96bcad4398ed"
+    }
+  ],
+  "Dependencies": [],
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "2.0.2.6826",
+      "RunType": "Automatic",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "Background Preview",
+      "EyeX": -28.529657724252711,
+      "EyeY": 45.160136588321528,
+      "EyeZ": 63.610638469372773,
+      "LookX": 23.529657724252711,
+      "LookY": -34.160136588321528,
+      "LookZ": -71.610638469372773,
+      "UpX": 0.06490143326055095,
+      "UpY": 0.97814760073380591,
+      "UpZ": -0.19752234086154891
+    },
+    "NodeViews": [
+      {
+        "ShowGeometry": true,
+        "Name": "01 - ADDING REVIT NODE LIB",
+        "Id": "46f08f716b31463ea9d46e3a2e3b9ac0",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -120.63209985856452,
+        "Y": -105.57586967303206
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "02 - CREATING COLUMNS",
+        "Id": "da5951696f3247c2ad9aa3a7632daaeb",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 484.22852223193405,
+        "Y": 159.65197045020574
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyInstance.ByPointAndLevel",
+        "Id": "4bafc84f10d14ff188552025b40805c2",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 377.29339080898171,
+        "Y": 286.33123411938868
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Levels",
+        "Id": "2391f353826e4d80b0359565f87f87f4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 113.82125649294079,
+        "Y": 245.19451876292047
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Types",
+        "Id": "5dbd504cb03d4c72ab79d412c2ad9681",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -121.12603848250046,
+        "Y": 149.80439012518019
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "0c52ed5af18c40f3aa8b919430fedfa8",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 350.02195831399496,
+        "Y": 508.80336800110638
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Types",
+        "Id": "ea154f0e8520452297ca4852b15f781f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -120.70235058455364,
+        "Y": 540.66988591432221
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family.Types",
+        "Id": "fbb56eda7f5742f7a6a2f4c3a104ed0f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 433.54289159997307,
+        "Y": 685.71984768320317
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyType.Family",
+        "Id": "574d709247944ffdba35bd9bafc8a1aa",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 127.36715773123854,
+        "Y": 685.71984768320317
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "FamilyInstance.ByFamilyType",
+        "Id": "317d176e44a2469da5bbe9df0a9de2c5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 697.20800099067742,
+        "Y": 685.40354113045373
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "f167ad0beb334b97a74c03fb04081214",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 188.36801491215266,
+        "Y": 915.541796474535
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Types",
+        "Id": "6be9fd015fa84786b09535d76bbaa11f",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -120.78822461825325,
+        "Y": 911.47089790533278
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "a73709f76eaa4d62a32640a8816b07c4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": true,
+        "X": 182.82070290140996,
+        "Y": 1098.445745037352
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Family Types",
+        "Id": "ab0c13803e63424baa79f3106c23052d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": -123.39605101837907,
+        "Y": 1099.2739891525107
+      }
+    ],
+    "Annotations": [
+      {
+        "Id": "c64a377abd2241688c5ac18cf2f908f3",
+        "Title": "02 - Creating Columns",
+        "Nodes": [
+          "da5951696f3247c2ad9aa3a7632daaeb",
+          "4bafc84f10d14ff188552025b40805c2",
+          "2391f353826e4d80b0359565f87f87f4",
+          "5dbd504cb03d4c72ab79d412c2ad9681"
+        ],
+        "Left": -131.12603848250046,
+        "Top": 96.804390125180191,
+        "Width": 792.35456071443446,
+        "Height": 334.52684399420849,
+        "FontSize": 36.0,
+        "InitialTop": 149.80439012518019,
+        "InitialHeight": 281.52684399420849,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "2d288ffd3f27438cbf4d083b0b0ccf50",
+        "Title": "01 - Adding Revit Node Lib",
+        "Nodes": [
+          "46f08f716b31463ea9d46e3a2e3b9ac0"
+        ],
+        "Left": -130.63209985856452,
+        "Top": -245.57586967303206,
+        "Width": 209.0,
+        "Height": 233.0,
+        "FontSize": 36.0,
+        "InitialTop": -105.57586967303206,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 130.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "17a288e66a384f1e88888bb62610a9d3",
+        "Title": "03 - Revit API ",
+        "Nodes": [
+          "0c52ed5af18c40f3aa8b919430fedfa8",
+          "ea154f0e8520452297ca4852b15f781f",
+          "fbb56eda7f5742f7a6a2f4c3a104ed0f",
+          "574d709247944ffdba35bd9bafc8a1aa",
+          "317d176e44a2469da5bbe9df0a9de2c5"
+        ],
+        "Left": -130.70235058455364,
+        "Top": 455.80336800110638,
+        "Width": 1121.9103515752311,
+        "Height": 322.91647968209679,
+        "FontSize": 36.0,
+        "InitialTop": 508.80336800110638,
+        "InitialHeight": 321.91647968209679,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1154dd379b5f42e78b5dc2d58bbdbb45",
+        "Title": "04 - Wrapping/ UnWrapping",
+        "Nodes": [
+          "f167ad0beb334b97a74c03fb04081214",
+          "6be9fd015fa84786b09535d76bbaa11f"
+        ],
+        "Left": -130.78822461825325,
+        "Top": 815.47089790533278,
+        "Width": 453.15623953040591,
+        "Height": 193.0708985692022,
+        "FontSize": 36.0,
+        "InitialTop": 911.47089790533278,
+        "InitialHeight": 149.0708985692022,
+        "TextblockHeight": 86.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "1b830ac6cb734ccfbe1a4fe54365a16d",
+        "Title": "05 - Geometry Conversion",
+        "Nodes": [
+          "a73709f76eaa4d62a32640a8816b07c4",
+          "ab0c13803e63424baa79f3106c23052d"
+        ],
+        "Left": -133.39605101837907,
+        "Top": 1045.445745037352,
+        "Width": 450.216753919789,
+        "Height": 146.82824411515867,
+        "FontSize": 36.0,
+        "InitialTop": 1098.445745037352,
+        "InitialHeight": 145.82824411515867,
+        "TextblockHeight": 43.0,
+        "Background": "#FFC1D676"
+      }
+    ],
+    "X": 84.952631217722512,
+    "Y": 109.16267421369122,
+    "Zoom": 0.35524399271719964
+  }
+}
